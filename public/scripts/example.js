@@ -10,15 +10,78 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-var Comment = React.createClass({
+var LikeButton = React.createClass({
+  getInitialState: function() {
+    return {
+      liked: this.props.liked,
+      count: this.props.count
+    };
+  },
+  handleClick: function(event) {
+    var count=this.state.count;
+    if(this.state.liked){
+      count-=1;
+    }else{
+      count+=1;
+    }
+    this.setState({
+      liked: !this.state.liked,
+      count:count
+    });
+  },
+  render: function() {
+    var likeClass = this.state.liked ? 'likeBtn liked' : 'likeBtn';
+    var count=this.state.count>0?this.state.count:'顶';
+    return (
+      <div className={likeClass} onClick={this.handleClick}>
+        <span className="likeCount">{count}</span>
+        <span className="icon-like"></span>
+      </div>
+    );
+  }
+});
+
+var CommentHeader = React.createClass({
+  render: function() {
+    return (
+      <div className="commentHeader">
+        <div className="commentAuthor">
+          <span className="avatar"><img src="../img/user.png"/></span>
+          <span className="author">{this.props.author}</span>
+        </div>
+        <LikeButton liked={false} count={this.props.likedCount}/>
+      </div>
+    );
+  }
+});
+var CommentContent = React.createClass({
   render: function() {
     var rawMarkup = marked(this.props.children.toString(), {sanitize: true});
     return (
-      <div className="comment">
-        <h2 className="commentAuthor">
-          {this.props.author}
-        </h2>
+      <div className="commentContent">
         <span dangerouslySetInnerHTML={{__html: rawMarkup}} />
+      </div>
+    );
+  }
+});
+var CommentFooter = React.createClass({
+  render: function() {
+    return (
+      <div className="commentFooter">
+        <span className="time">25分钟前</span>
+        <span className="reply">回复</span>
+      </div>
+    );
+  }
+});
+var Comment = React.createClass({
+  render: function() {
+
+    return (
+      <div className="comment">
+        <CommentHeader author={this.props.comment.author} likedCount={this.props.comment.likedCount}/>
+        <CommentContent>{this.props.comment.text}</CommentContent>
+        <CommentFooter/>
       </div>
     );
   }
@@ -55,6 +118,9 @@ var CommentBox = React.createClass({
       }.bind(this)
     });
   },
+  handleOpenForm:function(){
+    $('.commentFormHolder').show();//.css('display','block');
+  },
   getInitialState: function() {
     return {data: []};
   },
@@ -67,6 +133,7 @@ var CommentBox = React.createClass({
       <div className="commentBox">
         <h1>Comments</h1>
         <CommentList data={this.state.data} />
+        <CommentBar onOpenForm={this.handleOpenForm}/>
         <CommentForm onCommentSubmit={this.handleCommentSubmit} />
       </div>
     );
@@ -80,7 +147,7 @@ var CommentList = React.createClass({
         // `key` is a React-specific concept and is not mandatory for the
         // purpose of this tutorial. if you're curious, see more here:
         // http://facebook.github.io/react/docs/multiple-components.html#dynamic-children
-        <Comment author={comment.author} key={index}>
+        <Comment author={comment.author} key={index} comment={comment}>
           {comment.text}
         </Comment>
       );
@@ -93,6 +160,15 @@ var CommentList = React.createClass({
   }
 });
 
+var CommentBar = React.createClass({
+  render: function () {
+    return (
+      <div className="commentBar">
+        <button className="BtnOpenForm" onClick={this.props.onOpenForm}>我也来说说</button>
+      </div>
+    )
+  }
+});
 var CommentForm = React.createClass({
   handleSubmit: function(e) {
     e.preventDefault();
@@ -107,11 +183,13 @@ var CommentForm = React.createClass({
   },
   render: function() {
     return (
-      <form className="commentForm" onSubmit={this.handleSubmit}>
-        <input type="text" placeholder="Your name" ref="author" />
-        <input type="text" placeholder="Say something..." ref="text" />
-        <input type="submit" value="Post" />
-      </form>
+      <div className="commentFormHolder">
+        <form className="commentForm" onSubmit={this.handleSubmit}>
+          <input ref="author" type="text" placeholder="Your name"  />
+          <p><textarea ref="text" className="content-textarea" rows="5" placeholder="你有什么看法呢？"></textarea></p>
+          <input type="submit" value="发表评论" className="submit" />
+        </form>
+      </div>
     );
   }
 });

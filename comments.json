@@ -1,10 +1,17 @@
 [
     {
         "author": "Pete Hunt",
-        "text": "Hey there!"
+        "text": "Hey there!",
+        "likedCount":0
     },
     {
         "author": "Paul O’Shannessy",
-        "text": "React is *great*!"
+        "text": "React is *great*!",
+        "likedCount":15
+    },
+    {
+        "author": "小明",
+        "text": "我是晓明，come on baby。我是晓明，come on baby。我是晓明，come on baby。我是晓明，come on baby。",
+        "likedCount":15
     }
 ]
