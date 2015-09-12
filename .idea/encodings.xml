@@ -1,9 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/README.md" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/package.json" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/public/css/base.css" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/public/css/comment.css" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/public/index-.html" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/public/index.html" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/public/scripts/example.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/public/scripts/rr-example.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/components/comment/Comment.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/components/comment/CommentBar.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/components/comment/CommentBox.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/components/comment/CommentForm.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/components/comment/CommentList.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/components/comment/comment.css" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/components/like/LikeBotton.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/components/like/like.css" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/pages/index/index.css" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/pages/index/index.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/webpack.build.config.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/webpack.config.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/webpack.production.config.js" charset="UTF-8" />
   </component>
 </project>
