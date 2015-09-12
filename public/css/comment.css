@@ -75,9 +75,13 @@ button, html input[type="button"], input[type="reset"], input[type="submit"] {
   float: right;
   color: #faad4c;
 }
+.commentFooter .reply a{
+  color: #faad4c;
+  text-decoration: none;
+}
 
 .commentFormHolder{
-  display: none;
+/*  display: none;*/
   position: fixed;
   top: 0;
   left: 0;
@@ -115,6 +119,8 @@ button, html input[type="button"], input[type="reset"], input[type="submit"] {
   background-color: #fff;
 }
 .commentBar .BtnOpenForm{
+  display: inline-block;
+  text-align: center;
   font-size: 1.1em;
   width: 60%;
   color: #fff;

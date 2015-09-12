@@ -69,7 +69,7 @@ var CommentFooter = React.createClass({
     return (
       <div className="commentFooter">
         <span className="time">25分钟前</span>
-        <span className="reply">回复</span>
+        <span className="reply"><a href='#/reply'>回复</a></span>
       </div>
     );
   }
@@ -117,24 +117,42 @@ var CommentBox = React.createClass({
         console.error(this.props.url, status, err.toString());
       }.bind(this)
     });
+    window.location.hash='';
   },
   handleOpenForm:function(){
-    $('.commentFormHolder').show();//.css('display','block');
+    console.log('handleOpenForm');
+    //$('.commentFormHolder').show();//.css('display','block');
+  },
+  handleHashChange:function() {console.log(window.location.hash.substr(1));
+    this.setState({
+      route: window.location.hash.substr(1)
+    })
   },
   getInitialState: function() {
-    return {data: []};
+    return {
+      data: [],
+      route:window.location.hash.substr(1)
+    };
   },
   componentDidMount: function() {
+    window.addEventListener('hashchange', this.handleHashChange);
     this.loadCommentsFromServer();
     setInterval(this.loadCommentsFromServer, this.props.pollInterval);
   },
   render: function() {
+
+    var CommentFormA;console.log('render',this.state.route);
+    switch (this.state.route) {
+      case '/post': CommentFormA = CommentForm; break;
+      case '/reply': CommentFormA = CommentForm; break;
+      default:      CommentFormA = CommentFormBlank;
+    }
     return (
       <div className="commentBox">
         <h1>Comments</h1>
         <CommentList data={this.state.data} />
         <CommentBar onOpenForm={this.handleOpenForm}/>
-        <CommentForm onCommentSubmit={this.handleCommentSubmit} />
+        <CommentFormA onCommentSubmit={this.handleCommentSubmit} />
       </div>
     );
   }
@@ -164,9 +182,14 @@ var CommentBar = React.createClass({
   render: function () {
     return (
       <div className="commentBar">
-        <button className="BtnOpenForm" onClick={this.props.onOpenForm}>我也来说说</button>
+        <a href='#/post' className="BtnOpenForm" onClick={this.props.onOpenForm}>我也来说说</a>
       </div>
     )
+  }
+});
+var CommentFormBlank = React.createClass({
+  render: function() {
+    return (<br/>);
   }
 });
 var CommentForm = React.createClass({
@@ -177,11 +200,13 @@ var CommentForm = React.createClass({
     if (!text || !author) {
       return;
     }
-    this.props.onCommentSubmit({author: author, text: text});
+    this.props.onCommentSubmit({author: author, text: text,likedCount:0});
     React.findDOMNode(this.refs.author).value = '';
     React.findDOMNode(this.refs.text).value = '';
   },
   render: function() {
+/*    var id = this.props.params.id;
+    console.log('key=',id);*/
     return (
       <div className="commentFormHolder">
         <form className="commentForm" onSubmit={this.handleSubmit}>
@@ -198,3 +223,18 @@ React.render(
   <CommentBox url="comments.json" pollInterval={2000} />,
   document.getElementById('content')
 );
+
+
+/*var Router = ReactRouter.Router;
+var Route = ReactRouter.Route;
+var Link = ReactRouter.Link;
+
+React.render((
+  <Router>
+    <Route path="/" component={CommentBox} >
+      <Route path="post" component={CommentForm} />
+      <Route path="reply/:id" component={CommentForm} />
+    </Route>
+  </Router>
+  ),  document.getElementById('content')
+);*/
