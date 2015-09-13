@@ -64,7 +64,7 @@ var CommentBox = React.createClass({
 
     return (
       <div className="commentBox">
-        <h1>Comments</h1>
+        <h1>Comments - 评论</h1>
         <CommentList data={this.state.data}/>
         <CommentBar/>
         {/*

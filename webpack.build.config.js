@@ -25,7 +25,7 @@ module.exports = {
       loader: 'babel-loader'// The module to load. "babel" is short for "babel-loader"
     }, {
       test: /\.css$/,
-      loader: 'style!css' //shortcut, Run both loaders style-loader and css-loader
+      loader: 'style!css!autoprefixer?{browsers:["last 2 version", "> 1%"]}' //shortcut, Run both loaders style-loader and css-loader
     }, {
       test: /\.(png|jpg)$/,
       loader: 'url-loader?limit=16384'  //images that er 25KB or smaller in size will be converted to a BASE64 string and included in the CSS file where it is defined
