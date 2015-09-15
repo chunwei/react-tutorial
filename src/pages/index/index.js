@@ -11,8 +11,9 @@ var App = React.createClass({
   render: function () {
     return (
       <div>
-        <CommentBox url="comments.json" pollInterval={2000}/>
+        <CommentBox url="comments.json" pollInterval={2000}>
         {this.props.children}
+        </CommentBox>
       </div>
     );
   }
@@ -22,7 +23,6 @@ var App = React.createClass({
 React.render((
     <Router>
       <Route path="/" component={App}>
-        <Route path="post" component={CommentForm}/>
         <Route path="reply/:id" component={CommentForm}/>
       </Route>
     </Router>

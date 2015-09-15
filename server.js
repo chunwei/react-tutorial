@@ -32,7 +32,22 @@ app.get('/comments.json', function(req, res) {
 app.post('/comments.json', function(req, res) {
   fs.readFile('comments.json', function(err, data) {
     var comments = JSON.parse(data);
-    comments.push(req.body);
+    var comment=req.body;
+    var pId=comment.parentId;
+    if(pId&&pId!=0){//这是回复评论
+      var parentComment;
+      for(var item of comments){
+        if(item.id==pId) {
+          parentComment=item;
+          break;
+        }
+      }
+      if(parentComment.replys==undefined)parentComment.replys=[];
+      parentComment.replys.push(comment);
+    }else{
+      comments.push(comment);
+    }
+    //comments.push(req.body);
     fs.writeFile('comments.json', JSON.stringify(comments, null, 4), function(err) {
       res.setHeader('Cache-Control', 'no-cache');
       res.json(comments);

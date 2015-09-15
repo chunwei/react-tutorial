@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/.editorconfig" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/.gitignore" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/README.md" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/package.json" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/public/css/base.css" charset="UTF-8" />
@@ -10,6 +12,7 @@
     <file url="file://$PROJECT_DIR$/public/lib/ReactRouter.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/public/scripts/example.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/public/scripts/rr-example.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/server.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/components/comment/Comment.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/components/comment/CommentBar.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/components/comment/CommentBox.js" charset="UTF-8" />
@@ -23,5 +26,11 @@
     <file url="file://$PROJECT_DIR$/webpack.build.config.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/webpack.config.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/webpack.production.config.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../react-qa/RequestRemote.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../react-qa/public/css/base.css" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../react-qa/public/css/qa.css" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../react-qa/public/index.html" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../react-qa/public/scripts/example.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../react-qa/server.js" charset="UTF-8" />
   </component>
 </project>

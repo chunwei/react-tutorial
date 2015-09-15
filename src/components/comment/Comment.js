@@ -31,10 +31,13 @@ var CommentContent = React.createClass({
 });
 var CommentFooter = React.createClass({
   render: function () {
+    let comment_id=this.props.comment_id;
+    let replyUrl='/reply/'+comment_id;
+
     return (
       <div className="commentFooter">
         <span className="time">25分钟前</span>
-        <span className="reply"><Link to='/reply/1'>回复</Link></span>
+        <span className="reply"><Link to={replyUrl}>回复</Link></span>
       </div>
     );
   }
@@ -46,7 +49,8 @@ var Comment = React.createClass({
       <div className="comment">
         <CommentHeader author={this.props.comment.author} likedCount={this.props.comment.likedCount}/>
         <CommentContent>{this.props.comment.text}</CommentContent>
-        <CommentFooter/>
+        <CommentFooter comment_id={this.props.comment.id}/>
+        {this.props.children}
       </div>
     );
   }

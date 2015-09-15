@@ -9,7 +9,7 @@ var CommentBar = React.createClass({
   render: function () {
     return (
       <div className="commentBar">
-        <Link to='/post' className="BtnOpenForm">我也来说说</Link>
+        <Link to='/reply/0' className="BtnOpenForm">我也来说说</Link>
       </div>
     )
   }

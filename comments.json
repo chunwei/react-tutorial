@@ -1,17 +1,48 @@
 [
     {
+        "id": 1,
         "author": "Pete Hunt",
         "text": "Hey there!",
         "likedCount": 0
     },
     {
+        "id": 2,
         "author": "Paul O’Shannessy",
         "text": "React is *great*!",
-        "likedCount": 15
+        "likedCount": 15,
+        "replys": [
+            {
+                "author": "BBB",
+                "text": "回复2:BBB",
+                "likedCount": "0",
+                "parentId": "2"
+            }
+        ]
     },
     {
+        "id": 3,
         "author": "小明",
         "text": "我是晓明，come on baby。我是晓明，come on baby。我是晓明，come on baby。我是晓明，come on baby。",
-        "likedCount": 15
+        "likedCount": 15,
+        "replys": [
+            {
+                "id": 4,
+                "author": "Baby",
+                "text": "滚粗！",
+                "likedCount": 10
+            },
+            {
+                "id": 5,
+                "author": "晓明",
+                "text": "谁敢冒充哥？！",
+                "likedCount": 5
+            },
+            {
+                "author": "AAA",
+                "text": "回复3:AAA",
+                "likedCount": "0",
+                "parentId": "3"
+            }
+        ]
     }
 ]

@@ -25,8 +25,22 @@ var CommentBox = React.createClass({
   },
   handleCommentSubmit: function (comment) {
     var comments = this.state.data;
-    var newComments = comments.concat([comment]);
-    this.setState({data: newComments});
+    let pId=comment.parentId;
+    if(pId&&pId!=0){//这是回复评论
+      var parentComment;
+      for(var item of comments){
+        if(item.id==pId) {
+          parentComment=item;
+          break;
+        }
+      }
+      if(parentComment.replys==undefined)parentComment.replys=[];
+      parentComment.replys.push(comment);
+    }else{
+      comments.push(comment);
+    }
+    //var newComments = comments.concat([comment]);
+    this.setState({data: comments});
     $.ajax({
       url: this.props.url,
       dataType: 'json',
@@ -58,10 +72,16 @@ var CommentBox = React.createClass({
   },
   componentDidMount: function () {
     this.loadCommentsFromServer();
-    setInterval(this.loadCommentsFromServer, this.props.pollInterval);
+    //setInterval(this.loadCommentsFromServer, this.props.pollInterval);
   },
   render: function () {
-
+    let children=this.props.children;
+    //console.log('Children.count=',React.Children.count(children));
+    React.Children.forEach(children,function (child,i) {
+      //console.log('child=',child);
+      //console.log('thisArg=',this);
+      child.props.onCommentSubmit=this.handleCommentSubmit;
+    },this);
     return (
       <div className="commentBox">
         <h1>Comments - 评论</h1>

@@ -12,19 +12,27 @@ var CommentForm = React.createClass({
     if (!text || !author) {
       return;
     }
-    this.props.onCommentSubmit({author: author, text: text, likedCount: 0});
+    console.log(author,text);
+    var pid =parseInt(this.props.params.id);
+    this.props.onCommentSubmit({author: author, text: text, likedCount: 0,parentId:pid});
     React.findDOMNode(this.refs.author).value = '';
     React.findDOMNode(this.refs.text).value = '';
   },
+  getCommentById: function (id) {
+      return comment;
+  },
+  componentDidMount: function(){
+
+  },
   render: function () {
-    var id = this.props.params.id;
-    console.log('key=', id);
+    var pid = this.props.params.id;
+    var replyTo=pid?`回复${pid}:`:'';
     return (
       <div className="commentFormHolder">
         <form className="commentForm" onSubmit={this.handleSubmit}>
-          <input ref="author" type="text" placeholder="Your name"/>
+          <input ref="author" type="text"  placeholder="Your name"/>
 
-          <p><textarea ref="text" className="content-textarea" rows="5" placeholder="你有什么看法呢？"></textarea></p>
+          <p><textarea ref="text" defaultValue={replyTo} className="content-textarea" rows="5" placeholder="我有话说"></textarea></p>
           <input type="submit" value="发表评论" className="submit"/>
         </form>
       </div>
