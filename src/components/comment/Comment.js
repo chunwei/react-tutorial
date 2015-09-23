@@ -5,17 +5,19 @@ import React from 'react';
 import {Link} from 'react-router';
 import LikeButton from '../like/LikeBotton.js'
 
-var avatarImg = require('./user.png');
+import '../utils/datetime.js';
 
 var CommentHeader = React.createClass({
   render: function () {
+  var defaultAvatar = require('./user.png');
+  var avatar=this.props.author.avatar||defaultAvatar;
     return (
       <div className="commentHeader">
         <div className="commentAuthor">
-          <span className="avatar"><img src={avatarImg}/></span>
-          <span className="author">{this.props.author}</span>
+          <span className="avatar"><img src={avatar}/></span>
+          <span className="author">{this.props.author.name||"游客"}</span>
         </div>
-        <LikeButton liked={false} count={this.props.likedCount}/>
+        <LikeButton liked={this.props.liked} count={this.props.likedCount} commentid={this.props.id} url="like"/>
       </div>
     );
   }
@@ -31,25 +33,30 @@ var CommentContent = React.createClass({
 });
 var CommentFooter = React.createClass({
   render: function () {
-    let comment_id=this.props.comment_id;
-    let replyUrl='/reply/'+comment_id;
-
+    let pid=this.props.pid;
+    let towho=this.props.towho;
+    let towhoname=this.props.towhoname;
+    let replyUrl=`/reply/${this.props.id}`;//`/reply/${pid}/${towho}/${towhoname}`;
+    let time=new Date(this.props.time).toRelativeTime();
+    let link=(this.props.id+'').substr(0,2)=='__'?'':<Link to={replyUrl}>回复</Link>;
     return (
       <div className="commentFooter">
-        <span className="time">25分钟前</span>
-        <span className="reply"><Link to={replyUrl}>回复</Link></span>
+        <span className="time">{time}</span>
+        <span className="reply">{link}</span>
       </div>
     );
   }
 });
 var Comment = React.createClass({
   render: function () {
-
+    let comment=this.props.comment;
+    let liked=comment.liked||0;
+    let pid=this.props.pid?this.props.pid:comment.id;
     return (
       <div className="comment">
-        <CommentHeader author={this.props.comment.author} likedCount={this.props.comment.likedCount}/>
-        <CommentContent>{this.props.comment.text}</CommentContent>
-        <CommentFooter comment_id={this.props.comment.id}/>
+        <CommentHeader author={comment.author} liked={liked} likedCount={comment.likedCount} id={comment.id}/>
+        <CommentContent>{comment.text}</CommentContent>
+        <CommentFooter id={comment.id} pid={pid} towho={comment.author.id} towhoname={comment.author.name} time={comment.time}/>
         {this.props.children}
       </div>
     );

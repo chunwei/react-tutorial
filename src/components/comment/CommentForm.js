@@ -3,34 +3,47 @@
  */
 
 import React from 'react';
+import RSVP from '../utils/common.js';
 
 var CommentForm = React.createClass({
   handleSubmit: function (e) {
     e.preventDefault();
-    var author = React.findDOMNode(this.refs.author).value.trim();
+    var name = "我";//React.findDOMNode(this.refs.author).value.trim();
     var text = React.findDOMNode(this.refs.text).value.trim();
-    if (!text || !author) {
+    if (!text || !name) {
       return;
     }
-    console.log(author,text);
-    var pid =parseInt(this.props.params.id);
-    this.props.onCommentSubmit({author: author, text: text, likedCount: 0,parentId:pid});
+    console.log(name,text);
+    var comment=RSVP.createComment();
+
+
+    //comment.parentId =this.props.params.id||0;
+    //comment.toWho=this.props.params.towho||'';
+    comment.text=text;
+
+    this.props.onCommentSubmit(comment,this.state.pid);
     React.findDOMNode(this.refs.author).value = '';
     React.findDOMNode(this.refs.text).value = '';
   },
   getCommentById: function (id) {
-      return comment;
+      return  this.props.getCommentById(id);
   },
-  componentDidMount: function(){
-
+  getInitialState: function(){
+    var pid=this.props.params.id||0;
+    if(pid&&pid!=0){
+      var pComment=this.getCommentById(pid);
+      return {pComment:pComment,pid:pid};
+    }
+    return {pid:pid};
   },
   render: function () {
-    var pid = this.props.params.id;
-    var replyTo=pid?`回复${pid}:`:'';
+    //var towho = this.props.params.towhoname;
+    //var replyTo=towho?`回复@${towho}：`:'';
+    var replyTo=this.state.pid?`回复@${this.state.pComment.author.name}：`:'';
     return (
       <div className="commentFormHolder">
         <form className="commentForm" onSubmit={this.handleSubmit}>
-          <input ref="author" type="text"  placeholder="Your name"/>
+          <input ref="author" type="hidden"  placeholder="Your name"/>
 
           <p><textarea ref="text" defaultValue={replyTo} className="content-textarea" rows="5" placeholder="我有话说"></textarea></p>
           <input type="submit" value="发表评论" className="submit"/>

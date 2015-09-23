@@ -2,7 +2,9 @@ button, html input[type="button"], input[type="reset"], input[type="submit"] {
   cursor: pointer;
   -webkit-appearance: none;
 }
-
+#comments{
+  margin: 20px 10px;
+ }
 .comment {
   margin-top: 20px;
   border-bottom: solid 1px #eee;
@@ -104,6 +106,7 @@ button, html input[type="button"], input[type="reset"], input[type="submit"] {
 }
 .commentBar a{
   text-decoration: none;
+  height: 1em;
 }
 .commentBar .BtnOpenForm {
   display: inline-block;
@@ -116,4 +119,11 @@ button, html input[type="button"], input[type="reset"], input[type="submit"] {
   border-radius: 5px;
   padding: 10px;
   margin: 0 20%;
+}
+.commentBox .LoadMoreBtn{
+  margin-top: 10px;
+  cursor: pointer;
+  text-align: center;
+  color: #666;
+  background-color: #ddd;
 }

@@ -10,7 +10,7 @@ var CommentList = React.createClass({
     var comments = this.props.data.map(function (comment, index) {
       var replys=!!!comment.replys?'':comment.replys.map(function(reply,index){
         return(
-          <Comment author={reply.author} key={index} comment={reply} />
+          <Comment author={reply.author} key={index} pid={comment.id} comment={reply} />
         );
       });
       return (

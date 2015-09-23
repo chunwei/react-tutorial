@@ -5,11 +5,11 @@ var pathToReactRouterMini = path.resolve(node_modules, 'react-router/umd/ReactRo
 
 module.exports = {
   resolve: {
-    alias: {
+/*    alias: {
       'react': pathToReactMini,
       'react-router': pathToReactRouterMini
 
-    }
+    }*/
   },
   entry: {
     app: ["webpack/hot/dev-server", path.resolve(__dirname, 'src/pages/index/index.js')]
@@ -30,6 +30,6 @@ module.exports = {
       test: /\.(png|jpg)$/,
       loader: 'url-loader?limit=16384'  //images that er 25KB or smaller in size will be converted to a BASE64 string and included in the CSS file where it is defined
     }],
-    noParse: [pathToReactMini, pathToReactRouterMini]
+    //noParse: [pathToReactMini, pathToReactRouterMini]
   }
 }
