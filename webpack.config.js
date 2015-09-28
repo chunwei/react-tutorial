@@ -2,17 +2,19 @@ var path = require('path');
 var node_modules = path.resolve(__dirname, 'node_modules');
 var pathToReactMini = path.resolve(node_modules, 'react/dist/react.min.js');
 var pathToReactRouterMini = path.resolve(node_modules, 'react-router/umd/ReactRouter.min.js');
+var pathToJQuery = path.resolve(node_modules, 'jquery/dist/jquery.min.js');
 
 module.exports = {
   resolve: {
-/*    alias: {
-      'react': pathToReactMini,
+    alias: {
+      //'react': pathToReactMini,
+      'jquery': pathToJQuery,
       'react-router': pathToReactRouterMini
 
-    }*/
+    }
   },
   entry: {
-    app: ["webpack/hot/dev-server", path.resolve(__dirname, 'src/pages/index/index.js')]
+    comment: ["webpack/hot/dev-server", path.resolve(__dirname, 'src/pages/index/index.js')]
   },
 
   output: {
@@ -30,6 +32,6 @@ module.exports = {
       test: /\.(png|jpg)$/,
       loader: 'url-loader?limit=16384'  //images that er 25KB or smaller in size will be converted to a BASE64 string and included in the CSS file where it is defined
     }],
-    //noParse: [pathToReactMini, pathToReactRouterMini]
+    noParse: [/*pathToReactMini,*/ pathToReactRouterMini,pathToJQuery]
   }
 }

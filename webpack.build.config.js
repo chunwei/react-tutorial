@@ -12,7 +12,7 @@ module.exports = {
     }
   },
   entry: {
-    app: [path.resolve(__dirname, 'src/pages/index/index.js')]
+    comment: [path.resolve(__dirname, 'src/pages/index/index.js')]
   },
 
   output: {

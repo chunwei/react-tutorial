@@ -23,12 +23,14 @@ var LikeButton = React.createClass({
       like:liked?1:0
     };
     $.ajax({
-      url: this.props.url,
+      url: RSVP.config.likeurl,
       dataType: 'json',
       type: 'POST',
-      data: likeAction,
+      data: {params:JSON.stringify(likeAction)},//likeAction,//
       success: function (data) {
-        //TODO：是否更新一下comment里的liked值，否则下次render的时候这个state会被重置，但什么情况下这个component会被重新render？
+        if(data.Status=='Success'){
+          this.setState({count:data.Result});
+        }
       }.bind(this),
       error: function (xhr, status, err) {
         console.error(this.props.url, status, err.toString());

@@ -6,6 +6,7 @@ import './comment.css';
 
 import $ from 'jquery';
 import React from 'react';
+import {Link} from 'react-router';
 import CommentList from './CommentList.js'
 import CommentBar from './CommentBar.js'
 import RSVP from '../utils/common.js'
@@ -19,7 +20,15 @@ var CommentBox = React.createClass({
       data:{params:JSON.stringify(RSVP.getSelectParams())},
       success: function (res) {
         if(res&&res.Status=="Success") {
-          this.setState({data: res.Result,hasmore:res.Result.length>=RSVP.config.pagesize});
+          var comments=res.Result;
+          if(!comments||comments.length==0){
+            comments=[];
+            var first=RSVP.createComment();
+            first.author.name='景区';
+            first.text='欢迎留下您的足迹！';
+            comments.push(first);
+          }
+          this.setState({data: comments,hasmore:res.Result.length>=RSVP.config.pagesize});
         }
       }.bind(this),
       error: function (xhr, status, err) {
@@ -37,7 +46,9 @@ var CommentBox = React.createClass({
       data:{params:JSON.stringify(params)},
       success: function (res) {
         if(res&&res.Status=="Success") {
-          this.setState({data: this.state.data.concat(res.Result),hasmore:res.Result.length>=RSVP.config.pagesize});
+          //var newData=this.state.data.concat(res.Result);//正序，最后位置插入
+          var newData=res.Result.concat(this.state.data);//逆序，最前位置插入
+          this.setState({data: newData,hasmore:res.Result.length>=RSVP.config.pagesize});
           RSVP.config.page=params.page;
         }
       }.bind(this),
@@ -46,7 +57,7 @@ var CommentBox = React.createClass({
       }.bind(this)
     });
   },
-  handleCommentSubmit: function (comment,pId) {
+  handleCommentSubmit: function (comment,pId) {console.log("handleCommentSubmit");
     var comments = this.state.data;
     //let pId=comment.parentId;
     if(pId&&pId!=0){
@@ -60,7 +71,8 @@ var CommentBox = React.createClass({
 
       var syncComment=RSVP.getCommentById(comments,comment.syncId);
       if(!!!syncComment.replys)syncComment.replys=[];
-      syncComment.replys.push(comment);
+      //syncComment.replys.push(comment);//正序，最后位置插入
+      syncComment.replys.unshift(comment);//逆序，最前位置插入
     }else{
       comment.parentId =0;
       comment.syncId=0;
@@ -68,7 +80,8 @@ var CommentBox = React.createClass({
       comment.toAppid='';
       comment.toWho='';
 
-      comments.push(comment);
+      //comments.push(comment);//正序，最后位置插入
+      comments.unshift(comment);//逆序，最前位置插入
     }
 
 /*    if(pId&&pId!=0){//这是回复评论
@@ -87,26 +100,31 @@ var CommentBox = React.createClass({
     //var newComments = comments.concat([comment]);
     this.setState({data: comments});
 
-
+    console.log("insert to local comments Success");
     $.ajax({
       url: this.props.inserturl,
       dataType: 'json',
       type: 'POST',
       data: {params:JSON.stringify(comment)},
-      success: function (res) {
-        if(res.Status=="Success") {console.log(res);
+      success: function (res) {//console.log("insert Success");
+        if(res&&res.Status=="Success") {//console.log("res&&res.Status==Success");
           //this.setState({data: data});
-          var comment=res.Result[0];
-          if (comment && comment.tempid) {
-            var old = RSVP.getCommentById(comments, comment.tempid);console.log(old);
+          var comment=res.Result[0];console.log(res);//console.log(comment);
+          if (comment && res.tempid) {console.log("comment && res.tempid");
+            var old = RSVP.getCommentById(comments, res.tempid);console.log('old=');//console.log(old);console.log('==old end');
             old.id = comment.id;
             old.author = comment.author;
+            old.text=comment.text;
             this.setState({data: comments});
+          }
+        }else{
+          if(res&&res.Status=="Error"){
+            console.log('insert error:',res.Reason);
           }
         }
       }.bind(this),
       error: function (xhr, status, err) {
-        console.error(this.props.url, status, err.toString());
+        console.error(this.props.inserturl, status, err.toString());
       }.bind(this)
     });
     window.location.hash = '';
@@ -146,8 +164,10 @@ var CommentBox = React.createClass({
     var loadMoreBtn=this.state.hasmore?<div className="LoadMoreBtn" onClick={this.loadMore}>加载更多</div>:null;
     return (
       <div className="commentBox">
-        <h4>精华评论</h4>
-        <CommentList data={this.state.data}/>
+        <div className="BoxHeader">
+        <b>驴友评论</b><Link to='/post' className="writeComment">写评论<i className="icon-writeComment"></i></Link>
+        </div>
+        <CommentList data={this.state.data} sortBy="oldest" showTag={RSVP.config.showCommentTag}/>
         {loadMoreBtn}
         <CommentBar/>
         {/*

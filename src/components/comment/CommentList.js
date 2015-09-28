@@ -7,8 +7,10 @@ import Comment from './Comment.js';
 
 var CommentList = React.createClass({
   render: function () {
+    var showTag=this.props.showTag||false;
+    var newest=this.props.sortBy=="newest";
     var comments = this.props.data.map(function (comment, index) {
-      var replys=!!!comment.replys?'':comment.replys.map(function(reply,index){
+      var replys=!!!comment.replys?[]:comment.replys.map(function(reply,index){
         return(
           <Comment author={reply.author} key={index} pid={comment.id} comment={reply} />
         );
@@ -17,9 +19,9 @@ var CommentList = React.createClass({
         // `key` is a React-specific concept and is not mandatory for the
         // purpose of this tutorial. if you're curious, see more here:
         // http://facebook.github.io/react/docs/multiple-components.html#dynamic-children
-        <Comment author={comment.author} key={index} comment={comment}>
+        <Comment author={comment.author} key={index} comment={comment} showTag={showTag}>
           <div className="replys">
-            {replys}
+            {newest?replys.reverse():replys}
           </div>
         </Comment>
 
@@ -27,7 +29,7 @@ var CommentList = React.createClass({
     });
     return (
       <div className="commentList">
-        {comments}
+        {newest?comments.reverse():comments}
       </div>
     );
   }

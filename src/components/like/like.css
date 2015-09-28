@@ -1,6 +1,6 @@
 .commentHeader .likeBtn {
   position: absolute;
-  top: 5px;
+  top: 0px;
   right: 0;
   cursor: pointer;
 }
@@ -16,13 +16,13 @@
 }
 
 .commentHeader .likeBtn .likeCount {
-  height: 32px;
-  line-height: 45px;
+  height: 30px;
+  line-height: 37px;
 }
 
 .commentHeader .likeBtn .icon-like {
-  width: 32px;
-  height: 32px;
+  width: 30px;
+  height: 30px;
   margin-left: 6px;
   background-image: url('./like.png');
   background-repeat: no-repeat;

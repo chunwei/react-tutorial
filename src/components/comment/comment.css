@@ -3,14 +3,16 @@ button, html input[type="button"], input[type="reset"], input[type="submit"] {
   -webkit-appearance: none;
 }
 #comments{
-  margin: 20px 10px;
+  margin: 20px 15px;
  }
 .comment {
-  margin-top: 20px;
-  border-bottom: solid 1px #eee;
+  padding-top: 10px;
+  border-top: solid 1px #eee;
 }
 .comment .replys{
-  margin-left:50px;
+  margin-left:20px;
+  padding-left: 10px;
+  border-left: solid 3px #F3B242;
 }
 .commentHeader, .commentContent, .commentFooter {
   position: relative;
@@ -37,10 +39,21 @@ button, html input[type="button"], input[type="reset"], input[type="submit"] {
   float: left;
   margin-right: 10px;
 }
-
+.replys .commentHeader .commentAuthor .avatar {
+  width: 30px;
+  height: 30px;
+}
+.replys .commentHeader .commentAuthor .author {
+  line-height: 30px;
+}
 .commentHeader .avatar > img {
   width: 100%;
-  border-radius: 50%;
+  border-radius: 20%;
+}
+.commentHeader .tag {
+  font-size: 0.8em;
+  margin-left:10px;
+  color: #1448aa;
 }
 
 .commentFooter span {
@@ -58,14 +71,20 @@ button, html input[type="button"], input[type="reset"], input[type="submit"] {
   color: #faad4c;
 }
 
+
+
 .commentFooter .reply a {
   color: #faad4c;
   text-decoration: none;
+  height: 1em;
+  line-height: 1em;
+  display: inline;
 }
 
 .commentFormHolder {
   /*  display: none;*/
   position: fixed;
+  z-index: 99;
   top: 0;
   left: 0;
   width: 100%;
@@ -96,29 +115,38 @@ button, html input[type="button"], input[type="reset"], input[type="submit"] {
 }
 
 .commentBar {
-  position: fixed;
+/*  position: fixed;*/
+  z-index: 98;
   width: 100%;
   bottom: 0;
   left: 0;
+  margin-top: 10px;
   padding: 10px 0;
   border-top: solid 1px #ccc;
   background-color: #fff;
 }
 .commentBar a{
   text-decoration: none;
-  height: 1em;
+
 }
 .commentBar .BtnOpenForm {
   display: inline-block;
   text-align: center;
-  font-size: 1.1em;
+  box-sizing: border-box;
+  height: 2em;
+  line-height: 2em;
+  font-size: 1em;
   width: 60%;
   color: #fff;
   background-color: #faad4c;
   border: none;
   border-radius: 5px;
-  padding: 10px;
+/*  padding: 10px;*/
   margin: 0 20%;
+}
+.commentBox .BoxHeader {
+/*  background-color: #FFFFFF;*/
+  padding: 10px 0;
 }
 .commentBox .LoadMoreBtn{
   margin-top: 10px;
@@ -126,4 +154,16 @@ button, html input[type="button"], input[type="reset"], input[type="submit"] {
   text-align: center;
   color: #666;
   background-color: #ddd;
+}
+.commentBox .writeComment{
+  float:right;
+  color:#faad4c;
+}
+.commentBox .icon-writeComment{
+  display: inline-block;
+  margin-left: 5px;
+  width: 16px;
+  height: 16px;
+  background: url(pencil.png) no-repeat center center;
+  background-size: contain;
 }

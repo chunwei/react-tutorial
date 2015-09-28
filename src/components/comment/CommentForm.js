@@ -36,10 +36,18 @@ var CommentForm = React.createClass({
     }
     return {pid:pid};
   },
+  componentWillMount: function () {
+    //RSVP.checkOpenId();
+  },
   render: function () {
     //var towho = this.props.params.towhoname;
     //var replyTo=towho?`回复@${towho}：`:'';
-    var replyTo=this.state.pid?`回复@${this.state.pComment.author.name}：`:'';
+    //var replyTo=this.state.pid?`回复@${this.state.pComment.author.name||'游客'}：`:'';
+    var replyTo='';
+    if(this.state.pid){
+      var x=this.state.pComment.author.name||'游客';
+      replyTo=`回复@${x}：`;
+    }
     return (
       <div className="commentFormHolder">
         <form className="commentForm" onSubmit={this.handleSubmit}>

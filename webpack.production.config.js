@@ -4,12 +4,12 @@ var node_modules = path.resolve(__dirname, 'node_modules');
 
 module.exports = {
   entry: {
-    app: path.resolve(__dirname, 'app/main.js'),
-    vendors: ['react']
+    comment: path.resolve(__dirname, 'src/pages/index/index.js'),
+    vendors: ['react','react-router','jquery','js-cookie']
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'app.js'
+    filename: '[name].js'
   },
   module: {
     loaders: [{
