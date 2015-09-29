@@ -50,9 +50,9 @@ button, html input[type="button"], input[type="reset"], input[type="submit"] {
   width: 100%;
   border-radius: 20%;
 }
-.commentHeader .tag {
+.comment .tag {
   font-size: 0.8em;
-  margin-left:10px;
+  margin-left:0px;
   color: #1448aa;
 }
 

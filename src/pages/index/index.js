@@ -23,11 +23,17 @@ var App = React.createClass({
 });
 
 /*reply/:id/:towho/:towhoname*/
+var onEnter=function(){
+  console.log("onEnter");
+};
+var onLeave=function(){
+  console.log("onLeave");
+};
 React.render((
     <Router>
       <Route path="/" component={App}>
-        <Route path="post" component={CommentForm}/>
-        <Route path="reply/:id" component={CommentForm}/>
+        <Route path="post" component={CommentForm} onEnter={onEnter} onLeave={onLeave}/>
+        <Route path="reply/:id" component={CommentForm} onEnter={onEnter} onLeave={onLeave}/>
       </Route>
     </Router>
   ), document.getElementById("comments")

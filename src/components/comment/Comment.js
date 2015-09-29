@@ -13,12 +13,15 @@ var CommentHeader = React.createClass({
     var avatar=this.props.author.avatar||defaultAvatar;
     let tag=(this.props.showTag&&this.props.tag)?(<span className="tag">#{this.props.tag}</span>):null;
     return (
+      <div>
+      {tag}
       <div className="commentHeader">
         <div className="commentAuthor">
           <span className="avatar"><img src={avatar}/></span>
-          <span className="author">{this.props.author.name||"游客"} {tag}</span>
+          <span className="author">{this.props.author.name||"游客"}</span>
         </div>
         <LikeButton liked={this.props.liked} count={this.props.likedCount} commentid={this.props.id}/>
+      </div>
       </div>
     );
   }

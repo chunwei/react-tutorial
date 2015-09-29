@@ -35,11 +35,11 @@ RSVP.urlp=function(key, qstring){
 
 RSVP.createComment=function(){
   var uuid=this.config.uuid;
-  if(uuid.indexOf('_Add'))uuid=uuid.substr(0,uuid.indexOf('_Add'));
+  if(uuid.indexOf('_All')>-1)uuid=uuid.substr(0,uuid.indexOf('_All'));
   return {
     id:"__"+this.uuid(10),
-    uuid:this.config.uuid,
-    targetId:this.config.uuid,
+    uuid:uuid,
+    targetId:uuid,
     tag:this.config.tag,
     author:{id:this.config.openid, appid:this.config.appid,name:"我"},
     time:new Date().getTime()
