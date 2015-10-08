@@ -33,7 +33,7 @@ var onEnterRoot=function(nextState, replaceState){
   //console.log("nextState",nextState);
   //console.log("replaceState",replaceState);
   var hash = nextState.location.pathname.replace('/','#');
-  if (hash) {console.log("hash=",hash);
+  if (hash&&hash.length>1) {console.log("hash=",hash);
       var element = document.querySelector(hash);
       if (element) {console.log("scrollIntoView");
         element.scrollIntoView();
